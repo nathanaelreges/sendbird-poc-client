@@ -6,7 +6,7 @@ class WidgetBtn extends Element {
   constructor(widget) {
     super();
     this._create();
-    widget.appendChild(this.self);
+    // widget.appendChild(this.self);
   }
 
   reset() {

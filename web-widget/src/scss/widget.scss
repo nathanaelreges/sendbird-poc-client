@@ -3,6 +3,10 @@
 @import "animation";
 @import "icons";
 
+.hide {
+  display: none;
+}
+
 #sb_widget {
   @include reset();
   z-index: 99990;

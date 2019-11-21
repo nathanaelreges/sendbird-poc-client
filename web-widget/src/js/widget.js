@@ -41,6 +41,7 @@ class SBWidget {
   constructor() {}
 
   start(appId) {
+    let channelUrl;
     this._getGoogleFont();
     this.widget = document.getElementById(WIDGET_ID);
     if (this.widget) {
@@ -48,7 +49,18 @@ class SBWidget {
         this._initClickEvent(event);
       });
       this._init();
-      this._start(appId);
+
+      this._start(appId, () => {
+        if (!channelUrl) {
+          this.sb.createNewChannel(['student_guide'], channel => {
+            channelUrl = channel.url;
+            this._connectChannel(channelUrl, true);
+          });
+        } else {
+          this._connectChannel(channelUrl, true);
+        }
+      });
+
     } else {
       console.error(ERROR_MESSAGE);
     }
@@ -187,7 +199,7 @@ class SBWidget {
     }
   }
 
-  _start(appId) {
+  _start(appId, callback) {
     this.sb = new SendBirdAdapter(appId);
 
     this.popup.addCloseBtnClickEvent(() => {
@@ -287,15 +299,25 @@ class SBWidget {
     });
 
     const cookie = getCookie();
+    const login = {};
+
     if (cookie.userId) {
-      this._connect(cookie.userId, cookie.nickname);
-      this.listBoard.showChannelList();
-      this.toggleBoard(true);
-      this.chatSection.responsiveSize(
-        false,
-        this.responsiveChatSection.bind(this)
-      );
+      login.nickname = cookie.nickname;
+      login.userId = cookie.userId;
+    } else {
+      var name = prompt("Digite seu nome");
+      login.nickname = name;
+      login.userId = name + 123;
+      setCookie(login.userId, login.nickname);
     }
+
+    this._connect(login.userId, login.nickname, callback);
+    this.listBoard.showChannelList();
+    // this.toggleBoard(true);
+    this.chatSection.responsiveSize(
+      false,
+      this.responsiveChatSection.bind(this)
+    );
   }
 
   _connect(userId, nickname, callback) {

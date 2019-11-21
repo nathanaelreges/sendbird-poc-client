@@ -4,7 +4,7 @@ import { show, hide, getFullHeight, removeClass, xssEscape } from '../utils.js';
 
 const EMPTY_STRING = '';
 
-const CHAT_SECTION_RIGHT_MAX = '280px';
+const CHAT_SECTION_RIGHT_MAX = '0px';
 const CHAT_SECTION_RIGHT_MIN = '60px';
 const TOOLTIP_MEMBER_LIST = 'Member List';
 const TOOLTIP_CHANNEL_LEAVE = 'Channel Leave';
@@ -87,18 +87,18 @@ class ChatSection extends Element {
     chatTop.appendChild(chatTitle);
 
     var chatMemberCount = this.createDiv();
-    this._setClass(chatMemberCount, [className.COUNT]);
+    this._setClass(chatMemberCount, [className.COUNT, 'hide']);
     this._setContent(chatMemberCount, MEMBER_COUNT_DEFAULT);
     chatBoard.count = chatMemberCount;
     chatTop.appendChild(chatMemberCount);
 
     var topBtnClose = this.createDiv();
-    this._setClass(topBtnClose, [className.BTN, className.IC_CLOSE]);
+    this._setClass(topBtnClose, [className.BTN, className.IC_CLOSE, 'hide']);
     chatBoard.closeBtn = topBtnClose;
     chatTop.appendChild(topBtnClose);
 
     var topBtnLeave = this.createDiv();
-    this._setClass(topBtnLeave, [className.BTN, className.IC_LEAVE]);
+    this._setClass(topBtnLeave, [className.BTN, className.IC_LEAVE, 'hide']);
     chatBoard.leaveBtn = topBtnLeave;
 
     var tooltipLeave = this.createSpan();
@@ -109,7 +109,7 @@ class ChatSection extends Element {
     chatTop.appendChild(topBtnLeave);
 
     var topBtnMembers = this.createDiv();
-    this._setClass(topBtnMembers, [className.BTN, className.IC_MEMBERS]);
+    this._setClass(topBtnMembers, [className.BTN, className.IC_MEMBERS, 'hide']);
     chatBoard.memberBtn = topBtnMembers;
 
     var tooltipMember = this.createSpan();
@@ -120,7 +120,7 @@ class ChatSection extends Element {
     chatTop.appendChild(topBtnMembers);
 
     var topBtnInvite = this.createDiv();
-    this._setClass(topBtnInvite, [className.BTN, className.IC_INVITE]);
+    this._setClass(topBtnInvite, [className.BTN, className.IC_INVITE, 'hide']);
     chatBoard.inviteBtn = topBtnInvite;
 
     var tooltipInvite = this.createSpan();
