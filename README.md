@@ -1,6 +1,6 @@
 # Usage
 ```
-cd  web-widedget
+cd  web-widget
 npm install
 ```
 
